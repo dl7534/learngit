@@ -1,0 +1,119 @@
+---
+date: 2017-02-13 21:35
+status: public
+title: es6
+---
+
+**字符串模板**
+* 使用反引号(``)创建字符串
+```javascript
+var name="小安";
+var sex="女";
+var str=`我的名字是${name},我的性别是${sex}`;
+console.log(str)
+```
+**let与const关键字**
+* let为块变量，只在局部环境可见
+* const用来定义常量。即无法被更改至的变量
+```javascript
+var i=5;
+for(let i=0;i<5;i++){
+    console.log(i);   //0 1 2 3 4
+}
+console.log(i)  //5
+```
+**循环数组**
+* obj.forEach()
+* 相当于for循环,同each,传入回调函数，回调函数中传入两个参数，一个是对象，一个是下标
+```javascript
+//each循环
+//1.callback是一个回调函数
+//2.回头调用的意思。函数a的事先干完，回头再调用函数b,函数b是以形式参数传给a的。
+function each(num,callback){
+	for(var i=0;i<num;i++){
+		callback(i);
+	}
+}
+each(5,function(index){
+	console.log(index)
+})
+//forEach的应用
+//盒子排序
+<style>
+	div{
+		background:red;
+		margin: 10px 0;
+	}
+	div:nth-child(1){width:200px;}
+	div:nth-child(2){width:300px;}
+	div:nth-child(3){width:100px;}
+	div:nth-child(4){width:80px;}
+	div:nth-child(5){width:250px;}
+</style>
+<body>
+	<div class="a1">1</div>
+	<div class="a2">2</div>
+	<div class="a3">3</div>
+	<div class="a4">4</div>
+	<div class="a5">5</div>
+	<script>
+	document.addEventListener("DOMContentLoaded",function(){
+		//加载页面结构(加载标签)
+		var arr=document.querySelectorAll('div');
+		//类数组转化数组
+		arr=Array.prototype.slice.call(arr)
+		var len=arr.length;
+		//排序
+		arr.sort(function(a,b){
+			return a.clientWidth<b.clientWidth
+		})
+		//克隆节点并追加--排序后盒子的宽度会被覆盖
+		arr.forEach(function(obj,index){
+			var newarr=obj.cloneNode(true);
+			width=obj.clientWidth;
+			newarr.style.width=width+"px"
+			document.body.appendChild(newarr)
+		})
+		arr.forEach(function(obj,index){
+			document.body.removeChild(obj)
+		})
+	})		
+	</script>
+</body>
+```
+**继承**
+```javascript
+<script>
+    //es5写法
+	function aa(){
+		
+	}
+	//es6的写法
+	class aa{
+		constructor(){
+			this.name="aa"
+		}
+		abc(){
+			console.log("abc")
+		}
+	}
+	new aa().abc();
+	
+	//es6继承的写法
+	class person{
+		constructor(){
+			this.name="zhangsan"
+		}
+		say(){
+			console.log(this.name);
+		}
+	}
+	class stu extends person{
+		constructor(){
+			super();
+		}
+	}
+	new stu().say();
+	
+</script>
+```
